@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Политех — Контактная форма</title>
+    <style>
+        body { font-family: Arial, sans-serif; width: 400px; margin: 40px auto; }
+        .form-group { margin-bottom: 15px; }
+        .error { color: red; font-size: 14px; margin-top: 5px; }
+        .success { color: green; font-size: 16px; font-weight: bold; margin-top: 15px; }
+        input, select, textarea { width: 100%; padding: 8px; }
+        button { padding: 10px; width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<h2>Политех</h2>
+
+<div id="successMessage" class="success"></div>
+
+<form id="contact-form">
+
+    <div class="form-group">
+        <label>ФИО *</label>
+        <input id="fullName" type="text">
+        <p id="nameError" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Email *</label>
+        <input id="email" type="email">
+        <p id="emailError" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Телефон (необязательно)</label>
+        <input id="phone" type="tel">
+    </div>
+
+    <div class="form-group">
+        <label>Тема обращения *</label>
+        <select id="topic">
+            <option value="">-- Выберите тему --</option>
+            <option value="support">Техническая поддержка</option>
+            <option value="order">Вопрос по заказу</option>
+            <option value="billing">Платежи и счета</option>
+        </select>
+        <p id="topicError" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Сообщение *</label>
+        <textarea id="message"></textarea>
+        <p id="messageError" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label><input type="checkbox" id="terms"> Я принимаю условия *</label>
+        <p id="termsError" class="error"></p>
+    </div>
+
+    <button id="submitBtn" type="button" onclick="submitForm()">Отправить</button>
+</form>
+
+<script>
+    function submitForm() {
+        let valid = true;
+        document.querySelectorAll('.error').forEach(e => e.textContent = '');
+        document.getElementById('successMessage').textContent = '';
+
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const topic = document.getElementById('topic').value;
+        const message = document.getElementById('message').value.trim();
+        const terms = document.getElementById('terms').checked;
+
+        if (!name) { document.getElementById('nameError').textContent = "Поле обязательно для заполнения"; valid = false; }
+        if (!email) { document.getElementById('emailError').textContent = "Поле обязательно для заполнения"; valid = false; }
+        if (!topic) { document.getElementById('topicError').textContent = "Выберите тему"; valid = false; }
+        if (!message) { document.getElementById('messageError').textContent = "Поле обязательно для заполнения"; valid = false; }
+        if (!terms) { document.getElementById('termsError').textContent = "Необходимо принять условия"; valid = false; }
+
+        if (valid) {
+            document.getElementById('successMessage').textContent = "Ваше сообщение успешно отправлено!";
+        }
+    }
+</script>
+
+</body>
+</html>
